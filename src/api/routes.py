@@ -239,29 +239,30 @@ def crear_reparacion():
 @api.route('/reparaciones/<int:id>', methods=['PUT'])
 def actualizar_reparacion(id):
     reparacion = Reparacion.query.filter_by(id=id).first()
+
     if reparacion is None:
         return jsonify({"msg": "No existe la reparación"}), 404
 
     data = request.get_json()
 
-    reparacion.nombre_chofer_propietario = data.get('nombre_chofer_propietario', reparacion.nombre_chofer_propietario)
-    reparacion.vehiculo_id = data.get('vehiculo_id', reparacion.vehiculo_id)
-    reparacion.fallas = data.get('fallas', reparacion.fallas)
-    reparacion.DTC = data.get('DTC', reparacion.DTC)
-    reparacion.solucion = data.get('solucion', reparacion.solucion)
-    reparacion.tecnico_id = data.get('tecnico_id', reparacion.tecnico_id)
-    reparacion.fecha_ingreso = data.get('fecha_ingreso', reparacion.fecha_ingreso)
-    reparacion.fecha_reparacion = data.get('fecha_reparacion', reparacion.fecha_reparacion)
-    reparacion.costo_reparacion = data.get('costo_reparacion', reparacion.costo_reparacion)
-    reparacion.monto_cancelado_tecnico = data.get('monto_cancelado_tecnico', reparacion.monto_cancelado_tecnico)
-    reparacion.porcentaje_ganancia_tecnico = data.get('porcentaje_ganancia_tecnico', reparacion.porcentaje_ganancia_tecnico)
-    reparacion.porcentaje_ganancia_empresa = data.get('porcentaje_ganancia_empresa', reparacion.porcentaje_ganancia_empresa)
-    reparacion.check_list_pago = data.get('check_list_pago', reparacion.check_list_pago)
-    reparacion.fecha_salida = data.get('fecha_salida', reparacion.fecha_salida)
-    reparacion.reporte = data.get('reporte', reparacion.reporte)
+    reparacion.nombre_chofer_propietario = data["nombre_chofer_propietario"]
+    reparacion.vehiculo_id = data["vehiculo_id"]
+    reparacion.fallas = data["fallas"]
+    reparacion.DTC = data["DTC"]
+    reparacion.solucion = data["solucion"]
+    reparacion.tecnico_id = data["tecnico_id"]
+    reparacion.fecha_ingreso = data["fecha_ingreso"]
+    reparacion.fecha_reparacion = data["fecha_reparacion"]
+    reparacion.costo_reparacion = data["costo_reparacion"]
+    reparacion.monto_cancelado_tecnico = data["monto_cancelado_tecnico"]
+    reparacion.porcentaje_ganancia_tecnico = data["porcentaje_ganancia_tecnico"]
+    reparacion.porcentaje_ganancia_empresa = data["porcentaje_ganancia_empresa"]
+    reparacion.check_list_pago = data["check_list_pago"]
+    reparacion.fecha_salida = data["fecha_salida"]
+    reparacion.reporte = data["reporte"]
 
     db.session.commit()
-    return jsonify(reparacion.serialize())
+    return jsonify(reparacion.serialize()), 200
 
 @api.route('/reparaciones/<int:id>', methods=['DELETE'])
 def eliminar_reparacion(id):

@@ -24,13 +24,26 @@ const ModificarReparacion = () => {
     const [salida, setSalida] = useState("")
     const [check, setCheck] = useState("")
     const [reporte, setReporte] = useState("")
-
     const navigate = useNavigate()
-    console.log(id)
-
-    const agregarReparacion = async () => {
+    const modificarReparacion = async () => {
         if (chofer != "" && vehiculo != "" && falla != "" && tecnico != "" && ingreso != "") {
-            let resp = await actions.guardarReparacion(chofer, vehiculo, falla, tecnico, ingreso)
+            let resp = await actions.modificarReparacion(
+                chofer,
+                vehiculo,
+                falla,
+                tecnico,
+                ingreso,
+                diagnostico,
+                dtc,
+                solucion,
+                costoReparacion,
+                fechaReparacion,
+                porcentajeTecnico,
+                montoTecnico,
+                salida,
+                check,
+                reporte
+            );
             if (resp) {
                 navigate("/ListarReparaciones")
             } else {
@@ -47,49 +60,43 @@ const ModificarReparacion = () => {
                 text: "Debe ingresar todos los Datos"
             });
         }
-
     }
-
-    const obtenerReparacion = async () =>{
+    const obtenerReparacion = async () => {
         let resp = await actions.obtenerReparacion(id)
-        if( resp ) {
+        if (resp) {
             setChofer(store.reparacion.nombre_chofer_propietario.id)
             setFalla(store.reparacion.fallas)
-            setIngreso(store.reparacion.fecha_ingreso)
+            // Convertir fecha_ingreso a formato YYYY-MM-DD
+            const fechaIngreso = new Date(store.reparacion.fecha_ingreso).toISOString().split("T")[0];
+            setIngreso(fechaIngreso);
             setTecnico(store.reparacion.tecnico_id.id)
             setVehiculo(store.reparacion.vehiculo.id)
             setDiagnostico(store.reparacion.diagnostico)
             setDtc(store.reparacion.DTC)
             setSolucion(store.reparacion.solucion)
             setCostoReparacion(store.reparacion.costo_reparacion)
-            setFechaReparacion(store.reparacion.fecha_reparacion)
+            // Convertir fecha_reparacion a formato YYYY-MM-DD
+            const fechaReparacion = new Date(store.reparacion.fecha_reparacion).toISOString().split("T")[0];
+            setFechaReparacion(fechaReparacion)
             setPorcentajeTecnico(store.reparacion.porcentaje_ganancia_tecnico)
             setMontoTecnico(store.reparacion.monto_cancelado_tecnico)
-            setSalida(store.reparacion.fecha_salida)
+             // Convertir fecha_salida a formato YYYY-MM-DD
+            const fechaSalida = new Date(store.reparacion.fecha_salida).toISOString().split("T")[0];
+            setSalida(fechaSalida)
             setCheck(store.reparacion.check_list_pago)
             setReporte(store.reparacion.reporte)
-            
-
-
         }
     }
-    
-
     useEffect(() => {
-        // actions.obtenerChoferes()
-        // actions.obtenerTecnicos()
-        // actions.obtenerVehiculos()
-        obtenerReparacion() 
-
+        actions.obtenerChoferes()
+        actions.obtenerTecnicos()
+        actions.obtenerVehiculos()
+        obtenerReparacion()
     }, [])
-
-
-
     return (
         <div className="container">
-            <h1>Editar reparacion</h1>
+            <h1>Editar reparación</h1>
             <hr />
-
             <form>
                 <div className="row">
                     <div className="col">
@@ -100,10 +107,13 @@ const ModificarReparacion = () => {
                             <select className="form-select" aria-label="Default select example"
                                 value={chofer} onChange={(e) => setChofer(e.target.value)}
                             >
-                                <option selected>Chofer</option>
-                                {store.choferes.map((item) => (
-                                    <option value={item.id}>{item.nombre} {item.apellido}</option>
-                                ))}
+                                <option selected>{store.choferes.find(c => c.id === chofer)?.nombre || "Chofer"}</option>
+                                {store.choferes
+                                    .filter(item => item.id !== chofer)
+                                    .map(item => (
+                                        <option key={item.id} value={item.id}>{item.nombre} {item.apellido}</option>
+                                    ))
+                                }
                             </select>
                         </div>
                     </div>
@@ -115,10 +125,13 @@ const ModificarReparacion = () => {
                             <select className="form-select" aria-label="Default select example"
                                 value={vehiculo} onChange={(e) => setVehiculo(e.target.value)}
                             >
-                                <option selected>Vehiculos</option>
-                                {store.vehiculos.map((item) => (
-                                    <option value={item.id}>{item.matricula} - {item.codigo_producto}</option>
-                                ))}
+                                <option selected>{store.vehiculos.find(v => v.id === vehiculo)?.matricula || "Vehículo"}</option>
+                                {store.vehiculos
+                                    .filter(item => item.id !== vehiculo)
+                                    .map(item => (
+                                        <option key={item.id} value={item.id}>{item.matricula} - {item.codigo_producto}</option>
+                                    ))
+                                }
                             </select>
                         </div>
                     </div>
@@ -147,10 +160,13 @@ const ModificarReparacion = () => {
                             <select className="form-select" aria-label="Default select example"
                                 value={tecnico} onChange={(e) => setTecnico(e.target.value)}
                             >
-                                <option selected>Tecnicos</option>
-                                {store.tecnicos.map((item) => (
-                                    <option value={item.id}>{item.nombre} {item.apellido}</option>
-                                ))}
+                                 <option selected>{store.tecnicos.find(t => t.id === tecnico)?.nombre || "Técnico"}</option>
+                                {store.tecnicos
+                                    .filter(item => item.id !== tecnico)
+                                    .map(item => (
+                                        <option key={item.id} value={item.id}>{item.nombre} {item.apellido}</option>
+                                    ))
+                                }
                             </select>
                         </div>
                     </div>
@@ -285,7 +301,6 @@ const ModificarReparacion = () => {
                         </div>
                     </div>
                 </div>
-
                 <div className="row">
                     <div className="col">
                         <div className="mb-3">
@@ -305,14 +320,13 @@ const ModificarReparacion = () => {
                     <div className="col">
                         <div className="mb-3">
                             <label htmlFor="exampleInputEmail1" className="form-label">
-                               Check list pago
-                            </label> 
+                                Check list pago
+                            </label>
                             <select className="form-select" aria-label="Default select example"
                                 value={check} onChange={(e) => setCheck(e.target.value)}
                             >
                                 <option selected>Check list pago</option>
-                                
-                            </select>                      
+                            </select>
                         </div>
                     </div>
                     <div className="col">
@@ -333,14 +347,12 @@ const ModificarReparacion = () => {
                 </div>
                 <hr />
                 <button type="button"
-                    // onClick={(e) => agregarReparacion(e)}
+                     onClick={(e) => modificarReparacion(e)}
                     className="btn btn-outline-primary">
-                    Actualizar Repracion
+                    Actualizar Reparación
                 </button>
             </form >
         </div >
     )
-
 }
-
 export default ModificarReparacion

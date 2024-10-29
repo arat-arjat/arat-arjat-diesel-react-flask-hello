@@ -277,6 +277,44 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			},
 
+			modificarReparacion: async (chofer, vehiculo, falla, tecnico, ingreso, diagnostico, dtc, solucion, costoReparacion, fechaReparacion, porcentajeTecnico, montoTecnico, salida, check, reporte) => {
+                try {
+                   
+                    const resp = await fetch(process.env.BACKEND_URL + "reparaciones", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({
+                            nombre_chofer_propietario: chofer,
+                            vehiculo_id: vehiculo,
+                            fallas: falla,
+                            tecnico_id: tecnico,
+                            fecha_ingreso: ingreso,
+                            diagnostico: diagnostico,
+                            DTC: dtc,
+                            solucion: solucion,
+                            costo_reparacion: costoReparacion,
+                            fecha_reparacion: fechaReparacion,
+                            porcentaje_ganancia_tecnico: porcentajeTecnico,
+                            monto_cancelado_tecnico: montoTecnico,
+                            fecha_salida: salida,
+                            check_list_pago: check,
+                            reporte: reporte
+                        })
+                    })
+                    
+                    if (resp.status == 200) {
+                        
+                        getActions().obtenerReparaciones()
+                        return true;
+                    } else {
+                        return false
+                    }
+                } catch (error) {
+                    console.log("Error loading message from backend", error)
+                    return false
+                }
+            },
+
 			obtenerReparaciones: async () => {
 				try {
 					// fetching data from the backend
