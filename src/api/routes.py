@@ -272,4 +272,16 @@ def eliminar_reparacion(id):
     
     db.session.delete(reparacion)
     db.session.commit()
-    return jsonify({'mensaje': 'Reparación eliminada exitosamente'})
+    return jsonify({'mensaje': 'Reparación eliminada exitosamente'}), 200
+
+@api.route('/reparaciones_clientes', methods=['GET'])
+@jwt_required()
+def reparaciones_clientes():
+    user = get_jwt_identity () 
+    # print (user)
+    user_id = Usuario.query.filter_by(email = user).first()
+    # print (user_id.id)
+    reparaciones = Reparacion.query.filter_by(nombre_chofer_propietario=user_id.id).all()
+    if reparaciones == [] : 
+        return jsonify({"msg": "No existen repraciones"}), 404
+    return jsonify([reparacion.serialize() for reparacion in reparaciones]), 200

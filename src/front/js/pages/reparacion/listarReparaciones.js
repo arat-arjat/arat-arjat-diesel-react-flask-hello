@@ -8,8 +8,8 @@ const ListarReparaciones = () => {
 
     const borrar = (id) => {
         Swal.fire({
-            title: "Deseas Borrar este Usuario",
-            text: "No podras recuperar este Usuario",
+            title: "Deseas Borrar esta reparacion",
+            text: "No podras recuperar esta reparacion",
             icon: "warning",
             showCancelButton: true,
             confirmButtonColor: "#3085d6",
@@ -17,10 +17,10 @@ const ListarReparaciones = () => {
             confirmButtonText: "Si, eliminar!"
         }).then((result) => {
             if (result.isConfirmed) {
-                // actions.borrarUsuarios(id) esta es la q hay q editar para borrar reparaciones
+                actions.borrarReparacion(id) 
                 Swal.fire({
                     title: "Borrado!",
-                    text: "El Usuario se ha eliminado.",
+                    text: "La reparacion se ha eliminado.",
                     icon: "success"
                 });
             }
@@ -55,7 +55,7 @@ const ListarReparaciones = () => {
                             <tr key={item.id}>
                                 <th scope="row" >{item.id}</th>
                                 <td>{item.fecha_ingreso}</td>
-                                <td>{item.vehiculo.matricula}</td>
+                                <td>{item.vehiculo?.matricula}</td>
                                 <td>{item.nombre_chofer_propietario.nombre} {item.nombre_chofer_propietario.apellido}</td>
                                 <td>{item.fallas}</td>
                                 <td>{item.tecnico_id.nombre} {item.tecnico_id.apellido}</td>

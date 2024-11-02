@@ -1,10 +1,31 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { Context } from "../store/appContext";
-import { Link } from "react-router-dom";
+import { Link,  useNavigate } from "react-router-dom";
+import Swal from 'sweetalert2'
 
 export const Navbar = () => {
 	const { actions, store } = useContext(Context)
-	console.log(store.user)
+	const navigate = useNavigate()
+
+	const logOut  = async () => {
+
+		let resp = await actions.logOut()
+		if(resp) {
+			Swal.fire({
+				title: "Logout!",
+				text: "La sesion del Usuario ha caducado.",
+				icon: "error"
+			});
+			navigate("/")
+		}
+	}
+
+	useEffect(()=>{
+		if(!store.auth){
+		logOut()	
+		}
+	},[store.auth]) 
+	console.log(store.auth)
 	return (
 		<nav className="navbar navbar-light bg-light">
 			<div className="container">
@@ -26,7 +47,7 @@ export const Navbar = () => {
 						:
 						<div>
 							<Link to="/">
-								<button className="btn btn-outline-primary mx-2" onClick={actions.logOut}>Cerrar Sesion</button>
+								<button className="btn btn-outline-primary mx-2" onClick={logOut}>Cerrar Sesion</button>
 							</Link>
 							
 						</div>

@@ -20,6 +20,7 @@ import ListarReparaciones from "./pages/reparacion/listarReparaciones";
 import ModificarReparacion from "./pages/reparacion/modificarReparacion";
 import MenuAdmin from "./pages/roles/menuadmin";
 import MenuTecnico from "./pages/roles/menuTecnico";
+import VerReparacionesCliente from "./pages/roles/ListarReparacionCliente";
 
 //create your first component
 const Layout = () => {
@@ -49,6 +50,7 @@ const Layout = () => {
                         <Route element={<ModificarReparacion />} path="/ModificarReparacion/:id" />
                         <Route element={<MenuAdmin />} path="/MenuAdmin" />
                         <Route element={<MenuTecnico />} path="/MenuTecnico" />
+                        <Route element={<VerReparacionesCliente />} path="/VerReparacionesCliente" />
 
                     </Routes>
                     <Footer />

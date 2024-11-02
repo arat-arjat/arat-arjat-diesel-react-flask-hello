@@ -9,6 +9,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			tecnicos: [],
 			reparaciones: [], 
 			reparacion: {},
+			reparacionesCliente: [],
 			
 		},
 		actions: {
@@ -77,6 +78,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			logOut: () => {
 				localStorage.removeItem("token")
 				setStore({ auth: false })
+				return true
 			},
 
 			valid: async () => {
@@ -354,8 +356,50 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return false
 				}
 			},
+
+			obtenerReparacionesClientes: async () => {
+				try {
+					// Fetching data from the backend
+					const resp = await fetch(process.env.BACKEND_URL + "reparaciones_clientes", {
+						method: "GET",
+						headers: {
+							"Content-Type": "application/json",
+							"Authorization": "Bearer " + localStorage.getItem("token")
+						},
+					});
+					const data = await resp.json();
+					console.log(data);
+					setStore({ reparacionesCliente: data }); // Guardamos en el estado solo las reparaciones del cliente actual
+					return true;
+				} catch (error) {
+					console.log("Error loading repairs data from backend", error);
+					return false;
+				}
+			},
+			borrarReparacion: async (id) => {
+				try {
+					// fetching data from the backend
+					const resp = await fetch(process.env.BACKEND_URL + "reparaciones/" + id, {
+						method: "DELETE",
+						headers: { "Content-Type": "application/json" },
+					})
+					const data = await resp.json()
+					if (resp.status == 200) {
+						getActions().obtenerReparaciones()
+						//console.log(data)
+						// don't forget to return something, that is how the async resolves
+						return true;
+					} else {
+						return false
+					}
+				} catch (error) {
+					console.log("Error loading message from backend", error)
+					return false
+				}
+			},
 		}
 	};
+
 
 };
 
