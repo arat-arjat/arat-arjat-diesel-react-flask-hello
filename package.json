@@ -73,6 +73,8 @@
 		]
 	},
 	"dependencies": {
+		"jspdf": "^2.5.2",
+		"jspdf-autotable": "^3.8.4",
 		"prop-types": "^15.6.1",
 		"react": "^16.8.4",
 		"react-dom": "^16.8.4",

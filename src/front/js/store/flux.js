@@ -279,11 +279,11 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			},
 
-			modificarReparacion: async (chofer, vehiculo, falla, tecnico, ingreso, diagnostico, dtc, solucion, costoReparacion, fechaReparacion, porcentajeTecnico, montoTecnico, salida, check, reporte) => {
+			modificarReparacion: async (id, chofer, vehiculo, falla, tecnico, ingreso, diagnostico, dtc, solucion, costoReparacion, fechaReparacion, porcentajeTecnico, montoTecnico, salida, check, reporte, porcentaje_ganancia_empresa) => {
                 try {
                    
-                    const resp = await fetch(process.env.BACKEND_URL + "reparaciones", {
-                        method: "POST",
+                    const resp = await fetch(process.env.BACKEND_URL + "reparaciones/" + id, {
+                        method: "PUT",
                         headers: { "Content-Type": "application/json" },
                         body: JSON.stringify({
                             nombre_chofer_propietario: chofer,
@@ -300,12 +300,12 @@ const getState = ({ getStore, getActions, setStore }) => {
                             monto_cancelado_tecnico: montoTecnico,
                             fecha_salida: salida,
                             check_list_pago: check,
-                            reporte: reporte
+                            reporte: reporte,
+                            porcentaje_ganancia_empresa: porcentaje_ganancia_empresa
                         })
                     })
                     
                     if (resp.status == 200) {
-                        
                         getActions().obtenerReparaciones()
                         return true;
                     } else {

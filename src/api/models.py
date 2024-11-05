@@ -65,7 +65,7 @@ class Reparacion(db.Model):
     monto_cancelado_tecnico = db.Column(db.Float)
     porcentaje_ganancia_tecnico = db.Column(db.Float)
     porcentaje_ganancia_empresa = db.Column(db.Float)
-    check_list_pago = db.Column(db.Boolean)
+    check_list_pago = db.Column(db.String(15))
     fecha_salida = db.Column(db.Date) 
     reporte = db.Column(db.String(500))
     

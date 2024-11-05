@@ -1,14 +1,58 @@
-import React, { useEffect, useContext } from "react";
+import React, { useEffect, useContext, useState } from "react";
 import { Context } from "../../store/appContext";
 import { Link } from "react-router-dom";
+import { jsPDF } from "jspdf";
+import autoTable from 'jspdf-autotable'
 
 const VerReparacionesCliente = () => {
     const { actions, store } = useContext(Context);
 
-    useEffect(() => {
-        actions.obtenerReparacionesClientes(); // Llamada al backend para obtener solo reparaciones del cliente actual
-    }, []);
+    const [docImprimir, setdocImprimir] = useState([])
 
+    const imprimir = () => {
+
+        const doc = new jsPDF();
+        let data = []           // Array de info
+        let i = 35              // Renglones
+        // Titulo
+        doc.text("Reparaciones", 65, 20)
+        doc.setFontSize(11)
+
+        docImprimir.map((item, id) => {
+            i = i + 10
+            data = [...data,
+            [
+                item.tecnico_id.nombre + " " + item.tecnico_id.apellido,
+            ]
+            ]
+        })
+        const columns = ["Tecnico"]
+        doc.autoTable({
+            startY: 30,
+            styles: { cellWidth: "wrap" },
+            headStyles: { halign: 'center' }, // Centra los titulos
+            bodyStyles: { halign: "center" }, // Centra la info de la tabla
+
+            head: [columns],
+            body: data
+        })
+
+        doc.save("Reporte.pdf")
+
+    }
+
+    const reparaciones = async () => {
+        let resp = await actions.obtenerReparacionesClientes(); // Llamada al backend para obtener solo reparaciones del cliente actual
+        if (resp) {
+            setdocImprimir(store.reparacionesCliente)
+        }
+
+    }
+
+    useEffect(() => {
+        reparaciones()
+    }, []);
+    console.log(store.reparacionesCliente)
     return (
         <div className="container mt-2">
             <h1>Reparaciones de Mi Vehículo</h1>
@@ -38,8 +82,13 @@ const VerReparacionesCliente = () => {
                                 <td>{item.fallas}</td>
                                 <td>{item.tecnico_id.nombre} {item.tecnico_id.apellido}</td>
                                 <td>{item.DTC}</td>
-                                <td>{}</td>
-                                <td>{}</td>
+                                <td>
+                                    <button className="btn btn-outline-secondary" 
+                                    onClick={imprimir}>
+                                        <i className="fa fa-print"> </i>
+                                    </button>
+                                </td>
+                                <td>{ }</td>
                             </tr>
                         ))}
                     </tbody>
