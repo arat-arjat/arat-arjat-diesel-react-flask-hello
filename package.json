@@ -73,6 +73,7 @@
 		]
 	},
 	"dependencies": {
+		"@paypal/react-paypal-js": "^8.7.0",
 		"jspdf": "^2.5.2",
 		"jspdf-autotable": "^3.8.4",
 		"prop-types": "^15.6.1",

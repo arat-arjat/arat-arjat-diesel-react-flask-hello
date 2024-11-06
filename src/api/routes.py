@@ -9,6 +9,8 @@ from flask_jwt_extended import create_access_token
 from flask_jwt_extended import get_jwt_identity
 from flask_jwt_extended import jwt_required
 import bcrypt
+import requests #pipenv install Flask Flask-SQLAlchemy requests
+import os
 
 
 api = Blueprint('api', __name__)
@@ -285,3 +287,53 @@ def reparaciones_clientes():
     if reparaciones == [] : 
         return jsonify({"msg": "No existen repraciones"}), 404
     return jsonify([reparacion.serialize() for reparacion in reparaciones]), 200
+
+# Endpoint para crear una orden de PayPal
+@api.route('/create-paypal-order', methods=['POST'])
+def create_paypal_order():
+    data = request.json
+    client_id = os.getenv('client_id')
+    client_secret = os.getenv('client_secret')
+    paypal_url = 'https://api-m.sandbox.paypal.com/v2/checkout/orders'
+
+    try:
+        # Autenticación de PayPal
+        auth_response = requests.post('https://api-m.sandbox.paypal.com/v1/oauth2/token',
+            headers={
+                'Accept': 'application/json',
+                'Accept-Language': 'en_US',
+            },
+            auth=(client_id, client_secret),
+            data={'grant_type': 'client_credentials'}
+        )
+
+        auth_response.raise_for_status()
+        access_token = auth_response.json()['access_token']
+
+        # Crear la orden
+        order_response = requests.post(
+            paypal_url,
+            headers={
+                'Content-Type': 'application/json',
+                'Authorization': f'Bearer {access_token}'
+            },
+            json={
+                'intent': 'CAPTURE',
+                'purchase_units': [
+                    {
+                        'amount': {
+                            'currency_code': 'USD',
+                            'value': "101"  # Ajusta este valor según tu lógica
+                        }
+                    }
+                ]
+            }
+        )
+        order_response.raise_for_status()
+
+        order_id = order_response.json()['id']
+        return jsonify({'orderID': order_id}), 201
+
+    except requests.exceptions.RequestException as e:
+        print("Error:", e)
+        return jsonify({'error': str(e)}), 500

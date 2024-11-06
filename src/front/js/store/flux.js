@@ -5,12 +5,12 @@ const getState = ({ getStore, getActions, setStore }) => {
 			user: {},
 			vehiculos: [],
 			usuarios: [],
-			choferes: [], 
+			choferes: [],
 			tecnicos: [],
-			reparaciones: [], 
+			reparaciones: [],
 			reparacion: {},
 			reparacionesCliente: [],
-			
+
 		},
 		actions: {
 			// Use getActions to call a function within a fuction
@@ -211,7 +211,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return false
 				}
 			},
-			
+
 			obtenerTecnicos: async () => {
 				try {
 					// fetching data from the backend
@@ -260,7 +260,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 						body: JSON.stringify({
 							nombre_chofer_propietario: chofer,
 							vehiculo_id: vehiculo,
-							fallas: falla, 
+							fallas: falla,
 							tecnico_id: tecnico,
 							fecha_ingreso: ingreso
 						})
@@ -280,42 +280,42 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 
 			modificarReparacion: async (id, chofer, vehiculo, falla, tecnico, ingreso, diagnostico, dtc, solucion, costoReparacion, fechaReparacion, porcentajeTecnico, montoTecnico, salida, check, reporte, porcentaje_ganancia_empresa) => {
-                try {
-                   
-                    const resp = await fetch(process.env.BACKEND_URL + "reparaciones/" + id, {
-                        method: "PUT",
-                        headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify({
-                            nombre_chofer_propietario: chofer,
-                            vehiculo_id: vehiculo,
-                            fallas: falla,
-                            tecnico_id: tecnico,
-                            fecha_ingreso: ingreso,
-                            diagnostico: diagnostico,
-                            DTC: dtc,
-                            solucion: solucion,
-                            costo_reparacion: costoReparacion,
-                            fecha_reparacion: fechaReparacion,
-                            porcentaje_ganancia_tecnico: porcentajeTecnico,
-                            monto_cancelado_tecnico: montoTecnico,
-                            fecha_salida: salida,
-                            check_list_pago: check,
-                            reporte: reporte,
-                            porcentaje_ganancia_empresa: porcentaje_ganancia_empresa
-                        })
-                    })
-                    
-                    if (resp.status == 200) {
-                        getActions().obtenerReparaciones()
-                        return true;
-                    } else {
-                        return false
-                    }
-                } catch (error) {
-                    console.log("Error loading message from backend", error)
-                    return false
-                }
-            },
+				try {
+
+					const resp = await fetch(process.env.BACKEND_URL + "reparaciones/" + id, {
+						method: "PUT",
+						headers: { "Content-Type": "application/json" },
+						body: JSON.stringify({
+							nombre_chofer_propietario: chofer,
+							vehiculo_id: vehiculo,
+							fallas: falla,
+							tecnico_id: tecnico,
+							fecha_ingreso: ingreso,
+							diagnostico: diagnostico,
+							DTC: dtc,
+							solucion: solucion,
+							costo_reparacion: costoReparacion,
+							fecha_reparacion: fechaReparacion,
+							porcentaje_ganancia_tecnico: porcentajeTecnico,
+							monto_cancelado_tecnico: montoTecnico,
+							fecha_salida: salida,
+							check_list_pago: check,
+							reporte: reporte,
+							porcentaje_ganancia_empresa: porcentaje_ganancia_empresa
+						})
+					})
+
+					if (resp.status == 200) {
+						getActions().obtenerReparaciones()
+						return true;
+					} else {
+						return false
+					}
+				} catch (error) {
+					console.log("Error loading message from backend", error)
+					return false
+				}
+			},
 
 			obtenerReparaciones: async () => {
 				try {
@@ -395,6 +395,31 @@ const getState = ({ getStore, getActions, setStore }) => {
 				} catch (error) {
 					console.log("Error loading message from backend", error)
 					return false
+				}
+			},
+
+			createOrder: async (item) => {
+				try {
+					const response = await fetch(process.env.BACKEND_URL + "create-paypal-order", {
+						method: "POST",
+						headers: { "Content-Type": "application/json" },
+						// use the "body" param to optionally pass additional order information
+						// like product ids and quantities
+						body: JSON.stringify({
+							cart: [
+								{
+									id: item.id,
+									quantity: item.costo_reparacion,
+								},
+							],
+						}),
+					})
+					console.log("Response", response)
+					const data = await response.json()
+					console.log("data", data)
+					return data.orderID
+				} catch (error) {
+					console.log(error)
 				}
 			},
 		}
