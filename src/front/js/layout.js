@@ -22,6 +22,7 @@ import MenuAdmin from "./pages/roles/menuadmin";
 import MenuTecnico from "./pages/roles/menuTecnico";
 import VerReparacionesCliente from "./pages/roles/ListarReparacionCliente";
 import ModificarVehiculo from "./pages/vehiculos/modificarVehiculo";
+import ModificarPerfil from "./pages/roles/modificarPerfil";
 
 //create your first component
 const Layout = () => {
@@ -53,6 +54,7 @@ const Layout = () => {
                         <Route element={<MenuTecnico />} path="/MenuTecnico" />
                         <Route element={<VerReparacionesCliente />} path="/VerReparacionesCliente" />
                         <Route element={<ModificarVehiculo />} path="/modificar_vehiculo/:id" />
+                        <Route element={<ModificarPerfil />} path="/modificarPerfil/:id" />
                     </Routes>
                     <Footer />
                 </ScrollToTop>
