@@ -10,7 +10,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			reparaciones: [],
 			reparacion: {},
 			reparacionesCliente: [],
-
+			vehiculo: {}, 
 		},
 		actions: {
 			// Use getActions to call a function within a fuction
@@ -422,6 +422,51 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.log(error)
 				}
 			},
+
+			modificarVehiculo: async (id, codigo_producto, kilometraje, matricula, oem, transporte) => {
+                try {
+                    // fetching data from the backend
+                    const resp = await fetch(process.env.BACKEND_URL + "vehiculos/" + id, {
+                        method: "PUT",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({
+                            codigo_producto: codigo_producto,
+                            kilometraje: kilometraje,
+                            oem: oem,
+                            transporte: transporte,
+                            matricula: matricula,
+
+                        })
+                    })
+                    if (resp.status == 200) {
+                        getActions().obtenerVehiculos()
+                        return true;
+                    } else {
+                        return false
+                    }
+                } catch (error) {
+                    console.log("Error loading message from backend", error)
+                    return false
+                }
+            },
+
+			obtenerInfoVehiculo: async (id) => {
+                try {
+                    const resp = await fetch(process.env.BACKEND_URL + "vehiculos/" + id, {
+                        method: "GET",
+                        headers: {
+                            "Content-Type": "application/json",
+                            "Authorization": "Bearer " + localStorage.getItem("token")
+                        },
+                    })
+                    const data = await resp.json()
+                    setStore({ vehiculo: data })
+                    return true
+                } catch (error) {
+                    console.log("Error loading message from backend", error)
+                    return false
+                }
+            },
 		}
 	};
 

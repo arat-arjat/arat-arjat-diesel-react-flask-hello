@@ -183,7 +183,7 @@ def actualizar_vehiculo(id):
     vehiculo.oem = datos['oem']
     
     db.session.commit()
-    return jsonify({'mensaje': 'Vehículo actualizado exitosamente'})
+    return jsonify({'mensaje': 'Vehículo actualizado exitosamente'}), 200 
 
 
 #@api.route('/usuarios/<int:id>', methods=['DELETE'])
@@ -337,3 +337,10 @@ def create_paypal_order():
     except requests.exceptions.RequestException as e:
         print("Error:", e)
         return jsonify({'error': str(e)}), 500
+    
+@api.route('/vehiculos/<int:id>', methods=['GET'])
+def info_vehiculo(id):
+    vehiculo = Vehiculo.query.filter_by(id=id).first()
+    if vehiculo is None:
+        return jsonify({"msg": "no existe el vehículo"}), 404
+    return jsonify(vehiculo.serialize()), 200

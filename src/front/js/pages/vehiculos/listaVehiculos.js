@@ -4,6 +4,7 @@ import Swal from 'sweetalert2'
 
 
 const ListarVehiculos = () => {
+    const columnas = ["#", "Código producto", "Matrícula", "Transporte", "Kilometraje", "OEM", ""]
     const { actions, store } = useContext(Context)
 
     const borrar = (id) => {
@@ -33,40 +34,50 @@ const ListarVehiculos = () => {
 
     return (
         <div className="container mt-2">
-            <h1> Vehiculos </h1>
-            <table className="table">
-                <thead>
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">codigo_producto</th>
-                        <th scope="col">matricula</th>
-                        <th scope="col">transporte</th>
-                        <th scope="col">kilometraje</th>
-                        <th scope="col">oem</th>
-                        <th scope="col"></th>
-                        <th scope="col"></th>
-                    </tr>
-                </thead>
-                <tbody>
+        <hr />
+        <h1 className="mt-3 text-primary"
+            style={{ marginLeft: "15px" }}>
+            <i className="fa-solid fa-car text-dark"></i> Vehículos
+        </h1>
+        <hr />
 
-                   {store.vehiculos.map((item) => (
-                        <tr>
-                            <th scope="row" key={item.id}>{item.id}</th>
-                            <td>{item.codigo_producto}</td>
-                            <td>{item.matricula}</td>
-                            <td>{item.transporte}</td>
-                            <td>{item.kilometraje}</td>
-                            <td>{item.oem}</td>
-                            <td><i className="fa fa-pen"></i></td>
-                            <td><i className="fa fa-trash" onClick={() => borrar(item.id)}></i></td>
-
-                        </tr>
+        <table className="table">
+            <thead>
+                <tr className="text-center">
+                    {columnas.map((item, index) => (
+                        <th scope="col" key={index}>{item}</th>
                     ))}
+                </tr>
+            </thead>
 
-                </tbody>
-            </table>
-            <hr />
-        </div>
+            <tbody>
+                {store.vehiculos.map((item) => (
+                    <tr key={item.id} className="text-center">
+                        <th scope="row">{item.id}</th>
+                        <td>{item.codigo_producto}</td>
+                        <td>{item.matricula}</td>
+                        <td>{item.transporte}</td>
+                        <td>{item.kilometraje}</td>
+                        <td>{item.oem}</td>
+                        <td>
+                            <Link to={"/modificar_vehiculo/" + item.id}>
+                                <button className="btn btn-outline-primary mx-2">
+                                    <i className="fa fa-pen"></i>
+                                </button>
+                            </Link>
+                            <button className="btn btn-outline-danger">
+                                <i className="fa fa-trash"
+                                    onClick={() => borrar(item.id)}>
+                                </i>
+                            </button>
+                        </td>
+                    </tr>
+                ))}
+
+            </tbody>
+        </table>
+        <hr />
+    </div>
     )
 }
 
