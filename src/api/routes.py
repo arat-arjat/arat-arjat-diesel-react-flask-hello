@@ -90,11 +90,12 @@ def actualizar_usuario(id):
         return jsonify({"msg": "no existe el usuario"}), 404
     
     datos = request.json
+    new_password = current_app.bcrypt.generate_password_hash(datos['password']).decode('utf-8')
     usuario.nombre = datos['nombre']
     usuario.apellido = datos['apellido']
     usuario.email = datos['email']
    # usuario.contraseña = generate_password_hash(datos['contraseña'])
-    usuario.password = datos ["password"]
+    usuario.password = new_password
     usuario.rol = datos['rol']
     usuario.telefono = datos["telefono"]
     db.session.commit()
