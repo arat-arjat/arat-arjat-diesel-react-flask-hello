@@ -27,11 +27,12 @@ export const Navbar = () => {
 	},[store.auth]) 
 	console.log(store.auth)
 	return (
-		<nav className="navbar navbar-light bg-light">
+		<nav className="navbar navbar-light bg-body-tertiary ">
 			<div className="container">
-				<Link to="/">
-					<span className="navbar-brand mb-0 h1">React Boilerplate</span>
-				</Link>
+				
+				<p className="text-warning-emphasis">ARAT DIESEL</p>
+					{/* <span className="navbar-brand mb-0 h1 texto-dark-énfasis">Arat Diesel</span> */}
+				
 				<div className="ml-auto">
 					{!store.auth ?
 						<div>

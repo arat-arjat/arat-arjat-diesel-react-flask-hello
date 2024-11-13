@@ -1,5 +1,27 @@
 .homePage {
-    background-image: url('https://www.bse.com.uy/wps/wcm/connect/17e4a502-a584-49f4-b135-69b803edc67b/shutterstock_1714213732+%281%29.jpg?MOD=AJPERES');
-    background-size: cover;
-    height: 550px;
+  background-image: url("https://www.bse.com.uy/wps/wcm/connect/17e4a502-a584-49f4-b135-69b803edc67b/shutterstock_1714213732+%281%29.jpg?MOD=AJPERES");
+  background-size: cover;
+  height: 550px;
+}
+
+body {
+  background-color: black;
+  color: silver; /* O cambia a 'white' si prefieres */
+  font-family: Arial, sans-serif; /* Puedes personalizar la fuente */
+}
+
+input {
+  background-color: black;
+  color: silver;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+
+  &::placeholder {
+    color: silver;
+  }
+}
+
+span {
+    color: silver;
 }
