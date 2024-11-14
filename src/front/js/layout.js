@@ -56,7 +56,7 @@ const Layout = () => {
                         <Route element={<ModificarVehiculo />} path="/modificar_vehiculo/:id" />
                         <Route element={<ModificarPerfil />} path="/modificarPerfil/:id" />
                     </Routes>
-                    <Footer />
+                   
                 </ScrollToTop>
             </BrowserRouter>
         </div>

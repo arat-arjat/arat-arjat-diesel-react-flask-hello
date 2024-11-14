@@ -5,52 +5,45 @@ import { useParams } from "react-router-dom";
 
 const ModificarPerfil = () => {
     const { store, actions } = useContext(Context);
-	const [mail, setMail] = useState("")
-    const [password, setPassword] = useState("")
-	const [nombre, setNombre] = useState("")
-	const [apellido, setApellido] = useState("")
-	const [rol, setRol] = useState("")
-	const [telefono, setTelefono] = useState("")
-	const navigate = useNavigate()
-    const {id} = useParams()
+    const [mail, setMail] = useState("")
+    const [nombre, setNombre] = useState("")
+    const [apellido, setApellido] = useState("")
+    const [rol, setRol] = useState("")
+    const [telefono, setTelefono] = useState("")
+    const navigate = useNavigate()
+    const { id } = useParams()
 
     const obtenerPerfil = async () => {
-        let resp = await actions.obtenerInfoPerfil(id) 
-        console.log(resp, store.perfil)
-        
-        if(resp) {
+        let resp = await actions.obtenerInfoPerfil(id)
+
+        if (resp) {
             setNombre(store.perfil.nombre)
             setApellido(store.perfil.apellido)
             setMail(store.perfil.email)
             setTelefono(store.perfil.telefono)
             setRol(store.perfil.rol)
-            setPassword(store.perfil.password)
         }
     }
 
-    
+
     const handleSubmit = async (e) => {
-		e.preventDefault()
-		if (mail != "" && nombre != "" && apellido != "" && telefono != "" && rol != "") {
+        e.preventDefault()
+        if (mail != "" && nombre != "" && apellido != "" && telefono != "" && rol != "") {
 
-			let resp = await actions.modificarUsuario(mail, password, nombre, apellido, telefono, rol, id)
-			 if (resp) {
-			// 	let login = await actions.login(mail, password)
-			// 	if (login) {
-		 		navigate("/")
-			
+            let resp = await actions.modificarUsuario(mail, nombre, apellido, telefono, rol, id)
+            if (resp) {
+                navigate("/MenuAdmin")
+            } else {
+                alert("error de ingreso")
+            }
+        } else {
+            alert("Debe ingresar informacion")
+        }
+    }
 
-			} else {
-				alert("error de ingreso")
-			}
-		} else {
-			alert("Debe ingresar informacion")
-		}
-	}
-
-    useEffect(()=>{
-obtenerPerfil()
-    },[])
+    useEffect(() => {
+        obtenerPerfil()
+    }, [])
     return (
         <div className="text-center mt-5 container">
         <h1>Editar Perfil</h1>

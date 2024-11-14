@@ -29,9 +29,9 @@ export const Navbar = () => {
 	return (
 		<nav className="navbar navbar-light bg-body-tertiary ">
 			<div className="container">
-				
-				<p className="text-warning-emphasis">ARAT DIESEL</p>
-					{/* <span className="navbar-brand mb-0 h1 texto-dark-énfasis">Arat Diesel</span> */}
+				<Link to="/"style={{textDecoration:"none", color:"silver"}}> 
+<p className="text-warning-emphasis">ARAT DIESEL</p>				
+				</Link>
 				
 				<div className="ml-auto">
 					{!store.auth ?

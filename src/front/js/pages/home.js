@@ -1,18 +1,25 @@
-import React, { useContext } from "react";
-import { Context } from "../store/appContext";
+import React from "react";
 import "../../styles/home.css";
 import IniciarSesion from "./IniciarSesion";
+import Experiencia from "./landing_page/experiencia";
+import { Footer } from "../component/footer";
 
 export const Home = () => {
-    const { store, actions } = useContext(Context);
 
     return (
-        <div className="homePage">
+        <div className="homePage" >
             <div className="container">
                 <h1 className="pt-4 text-white">Bienvenidos</h1>
                 <hr />
             </div>
             <IniciarSesion />
+
+            <div style={{ marginTop: "80px" }}>
+                <Experiencia />
+            </div>
+
+            <hr />
+            <Footer />
         </div>
     );
 };
