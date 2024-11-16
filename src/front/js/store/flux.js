@@ -487,36 +487,34 @@ const getState = ({ getStore, getActions, setStore }) => {
                 }
             },
 
-			modificarUsuario: async (mail, password, nombre, apellido, telefono, rol, id) => {
-				try {
-					// fetching data from the backend
-					const resp = await fetch(process.env.BACKEND_URL + "usuarios/" + id, {
-						method: "PUT",
-						headers: { "Content-Type": "application/json" },
-						body: JSON.stringify({
-							email: mail,
-							password: password,
-							nombre: nombre,
-							apellido: apellido,
-							telefono: telefono,
-							rol: rol
-
-						})
-					})
-					const data = await resp.json()
-					if (resp.status == 200) {
-						getActions().obtenerUsuarios()
-						//console.log(data)
-						// don't forget to return something, that is how the async resolves
-						return true;
-					} else {
-						return false
-					}
-				} catch (error) {
-					console.log("Error loading message from backend", error)
-					return false
-				}
-			},
+			modificarUsuario: async (mail, nombre, apellido, telefono, rol, id) => {
+                try {
+                    // fetching data from the backend
+                    const resp = await fetch(process.env.BACKEND_URL + "usuarios/" + id, {
+                        method: "PUT",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({
+                            email: mail,
+                            nombre: nombre,
+                            apellido: apellido,
+                            telefono: telefono,
+                            rol: rol
+                        })
+                    })
+                    const data = await resp.json()
+                    if (resp.status == 200) {
+                        getActions().obtenerUsuarios()
+                        //console.log(data)
+                        // don't forget to return something, that is how the async resolves
+                        return true;
+                    } else {
+                        return false
+                    }
+                } catch (error) {
+                    console.log("Error loading message from backend", error)
+                    return false
+                }
+            },
 		}
 	};
 

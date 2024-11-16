@@ -1,12 +1,13 @@
 import React from "react";
 import Card from "../../component/card";
+import { Footer } from "../../component/footer";
 
 
 const MenuAdmin = () => {
     let menu = [
 
         {
-            "img": "https://cdn.pixabay.com/photo/2016/04/15/18/05/computer-1331579_640.png",
+            "img": "https://media.istockphoto.com/id/1934523700/es/foto/primer-plano-de-la-mano-del-hombre-usando-el-tel%C3%A9fono-m%C3%B3vil.webp?a=1&b=1&s=612x612&w=0&k=20&c=WzEp0ZBBf5cb-NGoZVOXhy2RzGSDgUvAhPLGQgavvJ8=",
             "titulo": "Usuarios",
             "linkListado": "/Usuarios",
             "linkAgregar": "/Registro",
@@ -45,6 +46,8 @@ const MenuAdmin = () => {
                     />
                 ) )}
             </div>
+            <hr />
+            <Footer />
         </div>
 
     )
