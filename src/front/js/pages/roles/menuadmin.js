@@ -7,13 +7,13 @@ const MenuAdmin = () => {
     let menu = [
 
         {
-            "img": "https://media.istockphoto.com/id/1934523700/es/foto/primer-plano-de-la-mano-del-hombre-usando-el-tel%C3%A9fono-m%C3%B3vil.webp?a=1&b=1&s=612x612&w=0&k=20&c=WzEp0ZBBf5cb-NGoZVOXhy2RzGSDgUvAhPLGQgavvJ8=",
+            "img": "https://scontent.fmyc4-1.fna.fbcdn.net/v/t39.30808-6/467475986_122193522536075746_2957642374993846276_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=127cfc&_nc_ohc=wty7P9Np85IQ7kNvgG-OIxr&_nc_zt=23&_nc_ht=scontent.fmyc4-1.fna&_nc_gid=AF4e9rn5N8_1DKjBw5yhOLG&oh=00_AYAv6YZVmCLBSQ27KcQUw8Yi8PrCbBwtY5kXXJwXeuF7hQ&oe=67418F09",
             "titulo": "Usuarios",
             "linkListado": "/Usuarios",
             "linkAgregar": "/Registro",
         },
         {
-            "img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQbDAbHn4t7HjcIFwE4hYyB7GgNufV5ABwL_UlA-McsQX1YzPZH0yraICw-Ze5JYlCsZl4&usqp=CAU",
+            "img": "https://scontent.fmyc4-1.fna.fbcdn.net/v/t39.30808-6/467656996_122193522596075746_7260377403487034535_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=127cfc&_nc_ohc=ZdjODxpY2JUQ7kNvgHj3Sqx&_nc_zt=23&_nc_ht=scontent.fmyc4-1.fna&_nc_gid=AO3aTnoM8g7XOjZ5FRJk7Zj&oh=00_AYDHDRhGPHsY-RhbvFEdDJ0aVQMIGQ1VuoMBK7YQkquKEA&oe=6741AD14",
             "titulo": "Vehiculos",
             "linkListado": "/Vehiculos",
             "linkAgregar": "/CrearVehiculos",
@@ -21,7 +21,7 @@ const MenuAdmin = () => {
         },
 
         {
-            "img": "https://www.mppt.gob.ve/wp-content/uploads/2019/02/DSC6406.jpg",
+            "img": "https://scontent.fmyc4-1.fna.fbcdn.net/v/t39.30808-6/467491168_122193522560075746_3267547907488027809_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=127cfc&_nc_ohc=VFbi1hyHexEQ7kNvgEtDUd4&_nc_zt=23&_nc_ht=scontent.fmyc4-1.fna&_nc_gid=A_IXRrLRQKlhL54J8HESlcP&oh=00_AYDYE9vad25qz2dTMVZb-9pVYRWtYQdvg4xZw3K_3wfTsQ&oe=674198F3",
             "titulo": "Reparaciones",
             "linkListado": "/ListarReparaciones",
             "linkAgregar": "/CrearReparacion",

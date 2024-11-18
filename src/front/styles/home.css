@@ -25,3 +25,19 @@ input {
 span {
     color: silver;
 }
+
+.InicioSesion {
+ 
+    width: 50%; 
+  
+}
+
+.logo-image {
+  width: 50px; 
+  height: auto;
+}
+
+.textoEmpresa {
+  margin-right: auto; /* Move the text to the left, closer to the logo */
+  margin-top: 15px;
+}

@@ -14,7 +14,7 @@ export const Home = () => {
             </div>
             <IniciarSesion />
 
-            <div style={{ marginTop: "80px" }}>
+            <div style={{ marginTop: "120px" }}>
                 <Experiencia />
             </div>
 

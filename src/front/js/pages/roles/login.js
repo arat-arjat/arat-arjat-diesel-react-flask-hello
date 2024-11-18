@@ -10,7 +10,7 @@ export const Login = () => {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault()
-		console.log(mail, password)
+		// console.log(mail, password)
 		if (mail != "" && password != "") {
 			let resp = await actions.login(mail, password)
 			if (resp) {
@@ -31,8 +31,8 @@ export const Login = () => {
 	}
 
 	return (
-		<div className="text-center mt-5 container">
-			<h1>Inicie Sesion</h1>
+		<div className="InicioSesion text-center mt-5 container">
+			<h1>Inicie Sesión</h1>
 			<form>
 				<div className="mb-3">
 					<label htmlFor="exampleInputEmail1" className="form-label">Email</label>
