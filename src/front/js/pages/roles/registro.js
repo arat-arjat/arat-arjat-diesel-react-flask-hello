@@ -20,7 +20,13 @@ export const Registro = () => {
 			if (resp) {
 				let login = await actions.login(mail, password)
 				if (login) {
-					navigate("/")
+					if (store.user.rol == "Administrador") {
+						navigate("/MenuAdmin")
+					} else if (store.user.rol == "Técnico") {
+						navigate("/MenuTecnico") // Redirect to Técnico page
+					} else {
+						navigate("/demo")
+					}
 				}
 
 			} else {

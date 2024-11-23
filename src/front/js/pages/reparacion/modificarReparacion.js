@@ -79,14 +79,22 @@ const ModificarReparacion = () => {
             setDtc(store.reparacion.DTC)
             setSolucion(store.reparacion.solucion)
             setCostoReparacion(store.reparacion.costo_reparacion)
-            // Convertir fecha_reparacion a formato YYYY-MM-DD
-            const fechaReparacion = new Date(store.reparacion.fecha_reparacion).toISOString().split("T")[0];
-            setFechaReparacion(fechaReparacion)
+
+            // Convertir fecha_reparacion a formato YYYY-MM-DD o asignar fecha actual si no existe
+            const fechaReparacion = store.reparacion.fecha_reparacion
+                ? new Date(store.reparacion.fecha_reparacion).toISOString().split("T")[0]
+                : new Date().toISOString().split("T")[0];
+            setFechaReparacion(fechaReparacion);
+
             setPorcentajeTecnico(store.reparacion.porcentaje_ganancia_tecnico)
             setMontoTecnico(store.reparacion.monto_cancelado_tecnico)
-            // Convertir fecha_salida a formato YYYY-MM-DD
-            const fechaSalida = new Date(store.reparacion.fecha_salida).toISOString().split("T")[0];
-            setSalida(fechaSalida)
+
+            // Convertir fecha_salida a formato YYYY-MM-DD o asignar fecha actual si no existe
+            const fechaSalida = store.reparacion.fecha_salida
+                ? new Date(store.reparacion.fecha_salida).toISOString().split("T")[0]
+                : new Date().toISOString().split("T")[0];
+            setSalida(fechaSalida);
+
             setCheck(store.reparacion.check_list_pago)
             setReporte(store.reparacion.reporte)
         }

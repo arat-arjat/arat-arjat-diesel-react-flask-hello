@@ -1,6 +1,6 @@
 import React, { useEffect, useContext, useState } from "react";
 import { Context } from "../../store/appContext";
-
+import { useNavigate } from "react-router-dom";
 
 const CrearVehiculos = () => {
     const { actions, store } = useContext(Context)
@@ -9,11 +9,15 @@ const CrearVehiculos = () => {
     const [transporte, setTransporte] = useState("")
     const [kilometraje, setKilometraje] = useState("")
     const [oem, setOem] = useState("")
+    const navigate= useNavigate()
 
     const agregarVehiculo = async (e) => {
         e.preventDefault()
         let resp = await actions.crearVehiculo(producto, kilometraje, matricula, oem, transporte)
-        console.log(resp)
+        if(resp) {
+          navigate("/Vehiculos")  
+        }
+
     }
 
     return (

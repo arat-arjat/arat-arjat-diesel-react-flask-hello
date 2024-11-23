@@ -19,12 +19,12 @@ const MenuTecnico = () => {
             "linkListado": "/ListarReparaciones",
             "linkAgregar": "/CrearReparacion",
         },
-        {
-            "img": "https://scontent.fmyc4-1.fna.fbcdn.net/v/t39.30808-6/467491168_122193522560075746_3267547907488027809_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=127cfc&_nc_ohc=VFbi1hyHexEQ7kNvgEtDUd4&_nc_zt=23&_nc_ht=scontent.fmyc4-1.fna&_nc_gid=A_IXRrLRQKlhL54J8HESlcP&oh=00_AYDYE9vad25qz2dTMVZb-9pVYRWtYQdvg4xZw3K_3wfTsQ&oe=674198F3",
-            "titulo": "Editar Reparaciones",
-            "linkListado": "/ModificarReparacion/:id",
-            "linkAgregar": "/Registro",
-        },
+        // {
+        //     "img": "https://scontent.fmyc4-1.fna.fbcdn.net/v/t39.30808-6/467491168_122193522560075746_3267547907488027809_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=127cfc&_nc_ohc=VFbi1hyHexEQ7kNvgEtDUd4&_nc_zt=23&_nc_ht=scontent.fmyc4-1.fna&_nc_gid=A_IXRrLRQKlhL54J8HESlcP&oh=00_AYDYE9vad25qz2dTMVZb-9pVYRWtYQdvg4xZw3K_3wfTsQ&oe=674198F3",
+        //     "titulo": "Editar Reparaciones",
+        //     "linkListado": "/ModificarReparacion/:id",
+        //     "linkAgregar": "/Registro",
+        // },
 
         
 
